@@ -70,6 +70,9 @@ module.exports = new Confidence.Store({
                 plugin: './plugins/scooter'
             },
             {
+                plugin: './plugins/basic'
+            },
+            {
                 plugin: {
                     $filter: { $env: 'NODE_ENV' },
                     $default: 'hpal-debug',

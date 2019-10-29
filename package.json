@@ -15,6 +15,7 @@
         "lint": "eslint ."
     },
     "dependencies": {
+        "@hapi/basic": "^5.1.1",
         "@hapi/boom": "8.x.x",
         "@hapi/joi": "15.x.x",
         "@hapi/scooter": "^5.1.1",
