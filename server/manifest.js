@@ -10,9 +10,12 @@ Dotenv.config({ path: `${__dirname}/.env` });
 // Glue manifest as a confidence store
 module.exports = new Confidence.Store({
     server: {
-        host: 'localhost',
+        host: {
+            $env: 'APP_HOST',
+            $default: 'localhost'
+        },
         port: {
-            $env: 'PORT',
+            $env: 'APP_PORT',
             $coerce: 'number',
             $default: 3000
         },
@@ -41,10 +44,17 @@ module.exports = new Confidence.Store({
                     $base: {
                         migrateOnStart: true,
                         knex: {
-                            client: 'sqlite3',
-                            useNullAsDefault: true,     // Suggested for sqlite3
+                            client: 'mysql',
                             connection: {
-                                filename: ':memory:'
+                                host: { $env: 'DB_HOST' },
+                                port: {
+                                    $env: 'DB_PORT',
+                                    $coerce: 'number',
+                                    $default: 3306
+                                },
+                                database: { $env: 'DB_DATABASE' },
+                                user: { $env: 'DB_USERNAME' },
+                                password: { $env: 'DB_PASSWORD' }
                             }
                         }
                     },
@@ -52,6 +62,15 @@ module.exports = new Confidence.Store({
                         migrateOnStart: false
                     }
                 }
+            },
+            {
+                plugin: './plugins/swagger'
+            },
+            {
+                plugin: './plugins/scooter'
+            },
+            {
+                plugin: './plugins/basic'
             },
             {
                 plugin: {
