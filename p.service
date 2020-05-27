@@ -1,0 +1,11 @@
+[Unit]
+Description=Simple Shortener URL
+After=network.target
+
+[Service]
+User=user
+WorkingDirectory=/your/working/directory
+ExecStart=/usr/bin/npm start
+
+[Install]
+WantedBy=multi-user.target
